@@ -1,0 +1,66 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+// Brute Force
+int elementAppearingOnceB(vector<int> &arr, int n){
+
+    for(int i=0;i<n;i++){
+        int ele = arr[i];
+        int cnt = 0;
+        for(int j=0;j<n;j++){
+            if(arr[j] == ele) cnt++;
+        }
+
+        if(cnt ==1 ) return arr[i];
+    }
+
+    return -1;
+}
+
+// Better Solution
+int elementAppearingOnceM(vector<int> &arr, int n){
+    map<int, int> mpp;
+
+    for(int i=0;i<n;i++){
+        mpp[arr[i]]++;
+    }
+
+    for(auto it : mpp){
+        if(it.second == 1){
+            return it.first;
+        }
+    }
+
+    return -1;
+}
+
+// Optimal Solution
+int elementAppearingOnceO(vector<int> &arr, int n){
+    
+    int xorr = 0;
+    for(int i=0;i<n;i++){
+        xorr ^= arr[i];
+    }
+
+    if(xorr !=0) return xorr;
+    return -1;
+}
+
+int main(){
+
+    vector<int> arr;
+    int n;
+
+    cin>>n;
+
+    for(int i=0;i<n;i++){
+        int a;
+        cin>>a;
+        arr.push_back(a);
+    }
+
+    int element = elementAppearingOnceO(arr, n);
+    cout<<element;
+    
+    return 0;
+}
